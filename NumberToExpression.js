@@ -5,14 +5,30 @@ function getRandomOperator() {
     return operators[index];
 }
 
-function generateRandomExpression() {
-    const a = Math.floor(Math.random() * 10);
-    const b = Math.floor(Math.random() * 10);
-    const op = getRandomOperator();
+function generateRandomExpression(target) {
+    for (let attemp = 0; attemp < 100; attemp++) {
+        const a = Math.floor((Math.random() * 9) + 1);
+        const b = Math.floor((Math.random() * 9) + 1);
+        const c = Math.floor((Math.random() * 9) + 1);
 
-    return `${a} ${op} ${b}`;
+        const op1 = getRandomOperator();
+        const op2 = getRandomOperator();
+
+        const expr = `${a} ${op1} ${b} ${op2} ${c}`;
+
+        try {
+            const result = eval(expr);
+
+            if (Math.abs(result - target) < 0.0001) {
+                return expr;
+            }
+        } catch (e) {
+            continue;
+        }
+    }
+
+    return "Oh soory :( I could'nt find it";
 }
 
-const expr = generateRandomExpression();
-console.log("Expression: ", expr);
-console.log("Result: ", eval(expr));
+const result = generateRandomExpression(22);
+console.log("Expression: ", result);
