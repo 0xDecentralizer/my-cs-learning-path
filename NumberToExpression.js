@@ -13,4 +13,6 @@ function generateRandomExpression() {
     return `${a} ${op} ${b}`;
 }
 
-console.log(generateRandomExpression());
+const expr = generateRandomExpression();
+console.log("Expression: ", expr);
+console.log("Result: ", eval(expr));
