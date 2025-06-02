@@ -1,7 +1,8 @@
 const operators = ['+', '-', '*', '/'];
 
 function getRandomOperator() {
-    const index = Math.floor(Math.random() * operators.length)
+    const index = Math.floor(Math.random() * operators.length);
+    return operators[index];
 }
 
 function generateRandomExpression() {
