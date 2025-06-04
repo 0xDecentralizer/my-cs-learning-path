@@ -30,5 +30,26 @@ function generateRandomExpression(target) {
     return "Oh soory :( I could'nt find it";
 }
 
+function backtrack(expr, value, depth, maxDepth, target) {
+    if (depth === maxDepth) {
+        if (Math.abs(value - target) < 0.0001) {
+            return expr;
+        }
+        return null;
+    }
+
+    for (let op of operators) {
+        for (let num = 1; num <= 9; num++) {
+            const newExpr = `${expr} ${op} ${num}`;
+            try {
+                const newValue = eval(newExpr);
+                const result = backtrack(newExpr, newValue, depth + 1, maxDepth, target);
+                if (result) return result;
+            } catch (e) {
+                continue;
+            }
+        }
+    }
+
 const result = generateRandomExpression(22);
 console.log("Expression: ", result);
