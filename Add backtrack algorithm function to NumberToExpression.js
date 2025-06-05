@@ -51,5 +51,15 @@ function backtrack(expr, value, depth, maxDepth, target) {
         }
     }
 
+    function findExpression(target, maxDepth = 3) {
+    for (let start = 1; start <= 9; start++) {
+        const expr = `${start}`;
+        const value = start;
+        const result = backtrack(expr, value, 0, maxDepth, target);
+        if (result) return result;
+    }
+    return "Not found :(";
+    }
+
 const result = generateRandomExpression(22);
 console.log("Expression: ", result);
