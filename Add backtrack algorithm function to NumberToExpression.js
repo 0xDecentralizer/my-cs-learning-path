@@ -30,7 +30,9 @@ function generateRandomExpression(target) {
     return "Oh soory :( I could'nt find it";
 }
 
-function backtrack(expr, value, depth, maxDepth, target) {
+function backtrack(expr, value, depth, maxDepth, target, attempts) {
+    attempts.count++;
+
     if (depth === maxDepth) {
         if (Math.abs(value - target) < 0.0001) {
             return expr;
@@ -43,7 +45,7 @@ function backtrack(expr, value, depth, maxDepth, target) {
             const newExpr = `${expr} ${op} ${num}`;
             try {
                 const newValue = eval(newExpr);
-                const result = backtrack(newExpr, newValue, depth + 1, maxDepth, target);
+                const result = backtrack(newExpr, newValue, depth + 1, maxDepth, target, attempts);
                 if (result) return result;
             } catch (e) {
                 continue;
@@ -51,15 +53,25 @@ function backtrack(expr, value, depth, maxDepth, target) {
         }
     }
 
-    function findExpression(target, maxDepth = 3) {
+    return null;
+}
+
+function findExpression(target, maxDepth = 3) {
+    const attempts = { count: 0 };
     for (let start = 1; start <= 9; start++) {
         const expr = `${start}`;
         const value = start;
-        const result = backtrack(expr, value, 0, maxDepth, target);
-        if (result) return result;
+        const result = backtrack(expr, value, 0, maxDepth, target, attempts);
+        if (result) {
+            return { expr: result, attempts: attempts.count };
+        }
     }
-    return "Not found :(";
-    }
+    return { expr: "Not found :(", attempts: attempts.count };
+}
 
-const result = generateRandomExpression(22);
-console.log("Expression: ", result);
+// const result = generateRandomExpression(22);
+// console.log("Expression: ", result);
+
+const result = findExpression(22);
+console.log(`Expression: ${result.expr}`);
+console.log(`Tried ${result.attempts} possibilities`);
