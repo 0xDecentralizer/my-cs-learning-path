@@ -19,4 +19,14 @@ BONUS: Create an array totals containing the total values, so the bill + tip.
 TEST DATA: 125, 555, and 44.
 */
 
+const bills = [125, 555, 44];
+const tips = [];
+const calcTip = function(bill) {
+    const tip = bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+    tips.push(tip);
+    console.log(`Tip: ${tip}, Bill: ${bill}, Total value: ${tip + bill}`);
+}
 
+calcTip(bills[0]);
+calcTip(bills[1]);
+calcTip(bills[2]);
