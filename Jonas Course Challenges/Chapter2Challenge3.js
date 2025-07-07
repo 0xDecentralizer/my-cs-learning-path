@@ -41,3 +41,13 @@ const john = {
         return this.bmi;
     }
 };
+
+console.log(`${
+    mark.calcBMI() > john.calcBMI() ? mark.fullName : john.fullName
+}'s BMI (${
+    mark.calcBMI() > john.calcBMI() ? mark.bmi : john.bmi
+}) is higher than ${
+    mark.calcBMI() > john.calcBMI() ? john.fullName : mark.fullName
+}'s (${
+    mark.calcBMI() > john.calcBMI() ? john.bmi : mark.bmi
+})`);
