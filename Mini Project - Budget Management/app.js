@@ -1,6 +1,6 @@
 const transactions = [];
 
-const txGenerator = function (_title, _amount, _type, _date) {
+const addTransaction = function (_title, _amount, _type, _date) {
     transactions.push({
         title: _title,
         amount: _amount,
@@ -14,8 +14,8 @@ const printAllTxs = function () {
     let totalExpense = 0;
 
     for (let i = 0; i < transactions.length; i++) {
-        const date = calcDate(transactions[i].date);
-        console.log(`${i + 1}. ${transactions[i].title} - ${transactions[i].amount} - ${transactions[i].type} - on ${date}`);
+        const date = formatDate(transactions[i].date);
+        console.log(`${i + 1}. ${transactions[i].title} - ${transactions[i].amount.toLocaleString()} - ${transactions[i].type} - on ${date}`);
 
         if (transactions[i].type === 'income') {
             totalIncome += transactions[i].amount;
@@ -24,10 +24,10 @@ const printAllTxs = function () {
         }
     };
 
-    console.log(`\nTotal income: ${totalIncome} \nTotal expense: ${totalExpense} \n Balance: ${totalIncome - totalExpense}`);
+    console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(totalIncome - totalExpense).toLocaleString()}`);
 }
 
-const calcDate = function (number) {
+const formatDate = function (number) {
     const str = number.toString();
     const year = str.substring(0,4);
     const month = str.substring(4,6);
@@ -38,9 +38,9 @@ const calcDate = function (number) {
     return date.toDateString();
 }
 
-txGenerator('Salary', 100000, 'income', 20250707);
-txGenerator('Buy shoe', 2000, 'expense', 20250708);
-txGenerator('Cinema', 15, 'expense', 20250710);
-txGenerator('Gift', 1500, 'income', 20250710);
+addTransaction('Salary', 100000, 'income', 20250707);
+addTransaction('Buy shoe', 2000, 'expense', 20250708);
+addTransaction('Cinema', 15, 'expense', 20250710);
+addTransaction('Gift', 1500, 'income', 20250710);
 
 printAllTxs();
