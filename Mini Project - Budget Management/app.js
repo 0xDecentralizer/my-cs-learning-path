@@ -15,10 +15,11 @@ const addTransaction = function (_title, _amount, _type, _date) {
     if (typeof _amount !== 'number') {
         console.log('Invalid transaction amount!');
         return;
-    } else if (_amount > balance()) {
-        console.log('Insufficient balance!');
-        return;
     }
+    // if (_type === 'expense' && _amount > balance()) {
+    //     console.log('Insufficient balance!');
+    //     return;
+    // }
         
     transactions.push({
         title: _title,
@@ -27,6 +28,8 @@ const addTransaction = function (_title, _amount, _type, _date) {
         date: _date
     });
 }
+
+const balance = () => { return (totalIncome - totalExpense - saveBox); }
 
 const printAllTxs = function () {
 
@@ -43,7 +46,7 @@ const printAllTxs = function () {
         }
     };
 
-    console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(totalIncome - totalExpense - saveBox).toLocaleString()} \nSave box: ${saveBox.toLocaleString()}`);
+    console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(balance()).toLocaleString()} \nSave box: ${saveBox.toLocaleString()}`);
 }
 
 const formatDate = function (number) {
