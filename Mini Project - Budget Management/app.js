@@ -4,16 +4,28 @@ let totalExpense = 0;
 let saveBox = 0;
 
 const addTransaction = function (_title, _amount, _type, _date) {
-    if (_type === 'income' || _type === 'expense' || _type === 'saving') {
-        transactions.push({
-            title: _title,
-            amount: _amount,
-            type: _type,
-            date: _date
-        });
-    } else {
-
+    if (_type !== 'income' && _type !== 'expense' && _type !== 'saving') {
+        console.log('Invalid transaction type!');
+        return;
+    } 
+    if (typeof _title !== 'string' || _title.trim() === '') {
+        console.log('Invalid transaction title!');
+        return;
     }
+    if (typeof _amount !== 'number') {
+        console.log('Invalid transaction amount!');
+        return;
+    } else if (_amount > balance()) {
+        console.log('Insufficient balance!');
+        return;
+    }
+        
+    transactions.push({
+        title: _title,
+        amount: _amount,
+        type: _type,
+        date: _date
+    });
 }
 
 const printAllTxs = function () {
