@@ -27,3 +27,8 @@ const calcDate = function (number) {
     return date.toDateString();
 }
 
+txGenerator('Buy shoe', 2000, 'outcome', 20250708);
+txGenerator('Salary', 100000, 'income', 20250709);
+txGenerator('Cinema', 15, 'outcome', 20250710);
+
+printAllTxs();
