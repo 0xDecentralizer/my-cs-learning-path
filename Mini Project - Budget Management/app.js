@@ -9,3 +9,10 @@ const txGenerator = function (_title, _amount, _type, _date) {
     });
 }
 
+const printAllTxs = function () {
+    for (let i = 0; i < transactions.length; i++) {
+        const date = calcDate(transactions[i].date);
+        console.log(`${i + 1}. ${transactions[i].title} - ${transactions[i].amount} - ${transactions[i].type} - at ${date}`);
+    };
+}
+
