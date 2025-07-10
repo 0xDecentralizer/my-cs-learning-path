@@ -19,7 +19,7 @@ const printAllTxs = function () {
 
         if (transactions[i].type === 'income') {
             totalIncome += transactions[i].amount;
-        } else {
+        } else if (transactions[i].type === 'expense') {
             totalExpense += transactions[i].amount;
         }
     };
@@ -30,10 +30,10 @@ const printAllTxs = function () {
 const formatDate = function (number) {
     const str = number.toString();
     const year = str.substring(0,4);
-    const month = str.substring(4,6);
+    const month = str.substring(4,6) - 1;
     const day = str.substring(6,8);
     
-    const date = new Date(`${year}-${month}-${day}`);
+    const date = new Date(year, month, day);
 
     return date.toDateString();
 }
