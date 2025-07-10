@@ -16,3 +16,14 @@ const printAllTxs = function () {
     };
 }
 
+const calcDate = function (number) {
+    const str = number.toString();
+    const year = str.substring(0,4);
+    const month = str.substring(4,6);
+    const day = str.substring(6,8);
+    
+    const date = new Date(`${year}-${month}-${day}`);
+
+    return date.toDateString();
+}
+
