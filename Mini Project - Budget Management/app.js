@@ -1,17 +1,22 @@
 const transactions = [];
+let totalIncome = 0;
+let totalExpense = 0;
+let saveBox = 0;
 
 const addTransaction = function (_title, _amount, _type, _date) {
-    transactions.push({
-        title: _title,
-        amount: _amount,
-        type: _type,
-        date: _date
-    });
+    if (_type === 'income' || _type === 'expense' || _type === 'saving') {
+        transactions.push({
+            title: _title,
+            amount: _amount,
+            type: _type,
+            date: _date
+        });
+    } else {
+
+    }
 }
 
 const printAllTxs = function () {
-    let totalIncome = 0;
-    let totalExpense = 0;
 
     for (let i = 0; i < transactions.length; i++) {
         const date = formatDate(transactions[i].date);
@@ -21,10 +26,12 @@ const printAllTxs = function () {
             totalIncome += transactions[i].amount;
         } else if (transactions[i].type === 'expense') {
             totalExpense += transactions[i].amount;
+        } else if (transactions[i].type === 'saving') {
+            saveBox += transactions[i].amount;
         }
     };
 
-    console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(totalIncome - totalExpense).toLocaleString()}`);
+    console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(totalIncome - totalExpense - saveBox).toLocaleString()} \nSave box: ${saveBox.toLocaleString()}`);
 }
 
 const formatDate = function (number) {
@@ -39,8 +46,9 @@ const formatDate = function (number) {
 }
 
 addTransaction('Salary', 100000, 'income', 20250707);
-addTransaction('Buy shoe', 2000, 'expense', 20250708);
-addTransaction('Cinema', 15, 'expense', 20250710);
-addTransaction('Gift', 1500, 'income', 20250710);
+addTransaction('Buy shoe', 900, 'expense', 20250708);
+addTransaction('Cinema', 100, 'expense', 20250710);
+addTransaction('Gift', 1000, 'income', 20250710);
+addTransaction('Save', 1000, 'saving', 20250712);
 
 printAllTxs();
