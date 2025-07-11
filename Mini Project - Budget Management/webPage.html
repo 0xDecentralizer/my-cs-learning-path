@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Budget Management App</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(to top left, #9828b4dd, #6fd5d0);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        padding: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin: 0;
+      }
+
+      .main-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        padding: 30px;
+      }
+
+      .form-section {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #e9ecef;
+      }
+
+      .display-section {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #e9ecef;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #495057;
+      }
+
+      input, select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      input:focus, select:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-secondary {
+        background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      }
+
+      .btn-info {
+        background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+      }
+
+      .output-area {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 20px;
+        min-height: 200px;
+        max-height: 400px;
+        overflow-y: auto;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      .balance-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .balance-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #667eea;
+      }
+
+      .balance-card.income {
+        border-left-color: #28a745;
+      }
+
+      .balance-card.expense {
+        border-left-color: #dc3545;
+      }
+
+      .balance-card.saving {
+        border-left-color: #ffc107;
+      }
+
+      .balance-card.balance {
+        border-left-color: #17a2b8;
+      }
+
+      .balance-value {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+
+      .income .balance-value {
+        color: #28a745;
+      }
+
+      .expense .balance-value {
+        color: #dc3545;
+      }
+
+      .saving .balance-value {
+        color: #ffc107;
+      }
+
+      .balance .balance-value {
+        color: #17a2b8;
+      }
+
+      .transactions-list {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .transaction-item {
+        padding: 10px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .transaction-item:last-child {
+        border-bottom: none;
+      }
+
+      .transaction-info {
+        flex: 1;
+      }
+
+      .transaction-amount {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .transaction-amount.income {
+        color: #28a745;
+      }
+
+      .transaction-amount.expense {
+        color: #dc3545;
+      }
+
+      .transaction-amount.saving {
+        color: #ffc107;
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          grid-template-columns: 1fr;
+        }
+        
+        .balance-cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>💰 Budget Management App</h1>
+      
+      <div class="main-content">
+        <!-- Form Section -->
+        <div class="form-section">
+          <h2>Add New Transaction</h2>
+          <form id="transactionForm">
+            <div class="form-group">
+              <label for="title">Transaction Title:</label>
+              <input type="text" id="title" placeholder="e.g., Salary, Groceries, etc." required>
+            </div>
+            
+            <div class="form-group">
+              <label for="amount">Amount:</label>
+              <input type="number" id="amount" placeholder="Enter amount" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="type">Transaction Type:</label>
+              <select id="type" required>
+                <option value="">Select type</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+                <option value="saving">Saving</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="date">Date (YYYYMMDD):</label>
+              <input type="text" id="date" placeholder="e.g., 20250707" pattern="\d{8}" required>
+            </div>
+            
+            <button type="submit" class="btn btn-success">Add Transaction</button>
+          </form>
+        </div>
+        
+        <!-- Display Section -->
+        <div class="display-section">
+          <h2>Financial Overview</h2>
+          
+          <div class="balance-cards">
+            <div class="balance-card income">
+              <h3>Total Income</h3>
+              <div class="balance-value" id="totalIncome">0</div>
+            </div>
+            <div class="balance-card expense">
+              <h3>Total Expense</h3>
+              <div class="balance-value" id="totalExpense">0</div>
+            </div>
+            <div class="balance-card saving">
+              <h3>Save Box</h3>
+              <div class="balance-value" id="saveBox">0</div>
+            </div>
+            <div class="balance-card balance">
+              <h3>Current Balance</h3>
+              <div class="balance-value" id="currentBalance">0</div>
+            </div>
+          </div>
+          
+          <h3>Recent Transactions</h3>
+          <div class="transactions-list" id="transactionsList">
+            <p style="text-align: center; color: #6c757d;">No transactions yet. Add your first transaction!</p>
+          </div>
+          
+          <h3>Console Output</h3>
+          <div class="output-area" id="consoleOutput"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      // Override console.log to display in the UI
+      const originalConsoleLog = console.log;
+      const consoleOutput = document.getElementById('consoleOutput');
+      
+      console.log = function(...args) {
+        originalConsoleLog.apply(console, args);
+        const message = args.join(' ');
+        consoleOutput.textContent += message + '\n';
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+      };
+
+      // Form submission handler
+      document.getElementById('transactionForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const title = document.getElementById('title').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+        const type = document.getElementById('type').value;
+        const date = document.getElementById('date').value;
+        
+        addTransaction(title, amount, type, parseInt(date));
+        
+        // Clear form
+        this.reset();
+        
+        // Update UI
+        updateUI();
+      });
+
+      // Function to update the UI
+      function updateUI() {
+        document.getElementById('totalIncome').textContent = totalIncome.toLocaleString();
+        document.getElementById('totalExpense').textContent = totalExpense.toLocaleString();
+        document.getElementById('saveBox').textContent = saveBox.toLocaleString();
+        document.getElementById('currentBalance').textContent = balance.toLocaleString();
+        
+        updateTransactionsList();
+      }
+
+      // Function to update transactions list
+      function updateTransactionsList() {
+        const transactionsList = document.getElementById('transactionsList');
+        
+        if (transactions.length === 0) {
+          transactionsList.innerHTML = '<p style="text-align: center; color: #6c757d;">No transactions yet. Add your first transaction!</p>';
+          return;
+        }
+        
+        transactionsList.innerHTML = '';
+        
+        transactions.forEach((transaction, index) => {
+          const transactionItem = document.createElement('div');
+          transactionItem.className = 'transaction-item';
+          
+          const date = formatDate(transaction.date);
+          
+          transactionItem.innerHTML = `
+            <div class="transaction-info">
+              <div><strong>${index + 1}. ${transaction.title}</strong></div>
+              <div style="color: #6c757d; font-size: 12px;">${date}</div>
+            </div>
+            <div class="transaction-amount ${transaction.type}">
+              ${transaction.type === 'expense' || transaction.type === 'saving' ? '-' : '+'}${transaction.amount.toLocaleString()}
+            </div>
+          `;
+          
+          transactionsList.appendChild(transactionItem);
+        });
+      }
+
+      // Override the original functions to update UI
+      const originalAddTransaction = addTransaction;
+      addTransaction = function(_title, _amount, _type, _date) {
+        originalAddTransaction(_title, _amount, _type, _date);
+        updateUI();
+      };
+
+      const originalPrintAllTxs = printAllTxs;
+      printAllTxs = function() {
+        originalPrintAllTxs();
+        updateUI();
+      };
+
+      const originalCheckBalance = checkBalance;
+      checkBalance = function() {
+        originalCheckBalance();
+        updateUI();
+      };
+
+      // Initialize UI
+      updateUI();
+    </script>
+  </body>
+</html>
