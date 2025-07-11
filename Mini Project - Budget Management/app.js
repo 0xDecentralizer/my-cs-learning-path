@@ -44,16 +44,21 @@ const addTransaction = function (_title, _amount, _type, _date) {
         saveBox += _amount;
         balance -= _amount;
     }
+    console.log(`Transaction submited:
+    ${transactions.length}. ${_title} - ${_amount.toLocaleString()} - ${_type} - on ${formatDate(_date)}`);
 }
 
 const printAllTxs = function () {
 
+    console.log('\nAll Transacions:')
     for (let i = 0; i < transactions.length; i++) {
         const date = formatDate(transactions[i].date);
         console.log(`${i + 1}. ${transactions[i].title} - ${transactions[i].amount.toLocaleString()} - ${transactions[i].type} - on ${date}`);
 
     };
+}
 
+const checkBalance = function() {
     console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(balance).toLocaleString()} \nSave box: ${saveBox.toLocaleString()}`);
 }
 
@@ -75,3 +80,4 @@ addTransaction('Gift', 1000, 'income', 20250710);
 addTransaction('Save', 1000, 'saving', 20250712);
 
 printAllTxs();
+checkBalance();
