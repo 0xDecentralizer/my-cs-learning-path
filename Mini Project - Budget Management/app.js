@@ -45,7 +45,7 @@ const addTransaction = function (_title, _amount, _type, _date) {
         balance -= _amount;
     }
     console.log(`Transaction submited:
-    ${transactions.length}. ${_title} - ${_amount.toLocaleString()} - ${_type} - on ${formatDate(_date)}`);
+    ${transactions.length}. ${_title} - ${_amount.toLocaleString()} - ${_type} - on ${formatDate(_date)} \nBalance after transaction: ${(balance).toLocaleString()} \n`);
 }
 
 const printAllTxs = function () {
@@ -73,11 +73,11 @@ const formatDate = function (number) {
     return date.toDateString();
 }
 
-addTransaction('Salary', 100000, 'income', 20250707);
-addTransaction('Buy shoe', 900, 'expense', 20250708);
-addTransaction('Cinema', 100, 'expense', 20250710);
-addTransaction('Gift', 1000, 'income', 20250710);
-addTransaction('Save', 1000, 'saving', 20250712);
+// addTransaction('Salary', 100000, 'income', 20250707);
+// addTransaction('Buy shoe', 900, 'expense', 20250708);
+// addTransaction('Cinema', 100, 'expense', 20250710);
+// addTransaction('Gift', 1000, 'income', 20250710);
+// addTransaction('Save', 1000, 'saving', 20250712);
 
-printAllTxs();
-checkBalance();
+// printAllTxs();
+// checkBalance();
