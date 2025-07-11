@@ -1,6 +1,7 @@
 const transactions = [];
 let totalIncome = 0;
 let totalExpense = 0;
+let balance = 0;
 let saveBox = 0;
 
 const addTransaction = function (_title, _amount, _type, _date) {
@@ -21,6 +22,10 @@ const addTransaction = function (_title, _amount, _type, _date) {
         console.log('Invalid date!');
         return;
     }
+    if (_type === 'expense' && _amount > balance) {
+        console.log('Insufficient balance!');
+        return;
+    } 
         
     transactions.push({
         title: _title,
@@ -28,9 +33,18 @@ const addTransaction = function (_title, _amount, _type, _date) {
         type: _type,
         date: _date
     });
+    
+    if (_type === 'income') {
+        totalIncome += _amount;
+        balance += _amount;
+    } else if (_type === 'expense') {
+        totalExpense += _amount;
+        balance -= _amount;
+    } else if (_type === 'saving') {
+        saveBox += _amount;
+        balance -= _amount;
+    }
 }
-
-const balance = () => { return (totalIncome - totalExpense - saveBox); }
 
 const printAllTxs = function () {
 
@@ -38,16 +52,9 @@ const printAllTxs = function () {
         const date = formatDate(transactions[i].date);
         console.log(`${i + 1}. ${transactions[i].title} - ${transactions[i].amount.toLocaleString()} - ${transactions[i].type} - on ${date}`);
 
-        if (transactions[i].type === 'income') {
-            totalIncome += transactions[i].amount;
-        } else if (transactions[i].type === 'expense') {
-            totalExpense += transactions[i].amount;
-        } else if (transactions[i].type === 'saving') {
-            saveBox += transactions[i].amount;
-        }
     };
 
-    console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(balance()).toLocaleString()} \nSave box: ${saveBox.toLocaleString()}`);
+    console.log(`\nTotal income: ${totalIncome.toLocaleString()} \nTotal expense: ${totalExpense.toLocaleString()} \nBalance: ${(balance).toLocaleString()} \nSave box: ${saveBox.toLocaleString()}`);
 }
 
 const formatDate = function (number) {
