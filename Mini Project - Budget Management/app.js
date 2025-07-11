@@ -4,10 +4,7 @@ let totalExpense = 0;
 let saveBox = 0;
 
 const addTransaction = function (_title, _amount, _type, _date) {
-    if (_type !== 'income' && _type !== 'expense' && _type !== 'saving') {
-        console.log('Invalid transaction type!');
-        return;
-    } 
+ 
     if (typeof _title !== 'string' || _title.trim() === '') {
         console.log('Invalid transaction title!');
         return;
@@ -16,10 +13,14 @@ const addTransaction = function (_title, _amount, _type, _date) {
         console.log('Invalid transaction amount!');
         return;
     }
-    // if (_type === 'expense' && _amount > balance()) {
-    //     console.log('Insufficient balance!');
-    //     return;
-    // }
+    if (_type !== 'income' && _type !== 'expense' && _type !== 'saving') {
+        console.log('Invalid transaction type!');
+        return;
+    }
+    if (! /^\d{8}$/.test(_date.toString())) {
+        console.log('Invalid date!');
+        return;
+    }
         
     transactions.push({
         title: _title,
