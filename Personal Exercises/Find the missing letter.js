@@ -33,4 +33,16 @@ function find(input) {
     }
 }
 
+function findBetter(input) {
+    for (let i = 0; i < input.length; i++) {
+        let currentCharCode = input[i].charCodeAt(0);
+        let nextCharCode = input[i+1].charCodeAt(0);
+        if (nextCharCode - currentCharCode > 1) {
+            console.log(`The missing letter is: ${String.fromCharCode(currentCharCode + 1)}`);
+            break;
+        }
+    }
+}
+
 find(input); // O(n * 26) complexity
+findBetter(input); // O(n) complexity
