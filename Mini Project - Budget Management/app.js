@@ -12,7 +12,7 @@ const addTransaction = function (_title, _amount, _type, _date) {
     return;
   }
   if (typeof _amount !== "number") {
-    console.log("Invalid transaction amount!");
+    console.log("Invalid transaction amountP!");
     return;
   }
   if (_type !== "income" && _type !== "expense" && _type !== "saving") {
@@ -90,3 +90,4 @@ const formatDate = function (number) {
 
 // printAllTxs();
 // checkBalance();
+
