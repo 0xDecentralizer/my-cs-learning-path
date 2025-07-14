@@ -11,15 +11,11 @@ Additionally, if the number is negative, return 0.
 Note: If the number is a multiple of both 3 and 5, only count it once.
 */
 
-
-let sum = 0;
-
 const findAndSum = (num) => {
+    let sum = 0;
     if (num < 0) return 0;
     for (let i = 0; i < num; i++) {
-        if (i % 3 == 0) {
-            sum += i;
-        } else if (i % 5 == 0) {
+        if (i % 3 == 0 || i % 5 == 0) {
             sum += i;
         } 
     }
@@ -29,4 +25,4 @@ const findAndSum = (num) => {
 
 console.log(findAndSum(-1));  // Return 0
 console.log(findAndSum(10));  // Return 23
-console.log(findAndSum(100)); // Return 2341
+console.log(findAndSum(100)); // Return 2318
