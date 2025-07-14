@@ -23,6 +23,20 @@ const findAndSum = (num) => {
     return sum;
 }
 
-console.log(findAndSum(-1));  // Return 0
-console.log(findAndSum(10));  // Return 23
-console.log(findAndSum(100)); // Return 2318
+console.log(findAndSum(100)); // O(n) complexity
+
+
+// ******** A BETTER SOLUTION ********
+
+const findAndSum2 = (num) => {
+    if (num < 0) return 0;
+
+    const sumMultiples = (factor) => {
+        const count = Math.floor((num - 1) / factor); 
+        return factor * count * (count + 1) / 2;
+    }
+
+    return sumMultiples(3) + sumMultiples(5) - sumMultiples(15);
+}
+
+console.log(findAndSum2(100)); // O(1) complexity :)
