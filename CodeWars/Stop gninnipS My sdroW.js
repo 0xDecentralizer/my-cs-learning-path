@@ -15,16 +15,13 @@ Examples:
 const sayHey = 'Hey great CodeWars keep going throw problems';
 const solution = (str) => {
     const words = str.split(' ');
-    const finalString = [];
     for (let i = 0; i < words.length; i++) {
         if (words[i].length >= 5) {
             const reversedWord = words[i].split('').reverse().join('');
-            finalString.push(reversedWord);
-        } else {
-            finalString.push(words[i]);
+            words[i] = reversedWord;
         }
     }
 
-    return finalString.join(' ');
+    return words.join(' ');
 }
 console.log(solution(sayHey)); // O(n) complexity
