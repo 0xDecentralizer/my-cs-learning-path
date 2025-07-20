@@ -10,3 +10,8 @@ const randomNumGenerator = function() {
 }
 // randomNumber = randomNumGenerator();
 
+const resetInitialValues = function () {
+    randomNumber = randomNumGenerator();
+    score = 20
+}
+resetInitialValues();
