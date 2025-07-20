@@ -38,8 +38,12 @@ document.querySelector('.check').addEventListener('click', function() {
         document.querySelector('.score').textContent = score;
         document.querySelector('.message').textContent = 'Too low ↓';
     } else if (guess === randomNumber) {
-        console.log('CONGRATS!!');
         document.querySelector('.message').textContent = 'CONGRATS!! ;)';
+        if (score > highScore) {
+            highScore = score;
+            document.querySelector('.highscore').textContent = highScore;
+        }
+        console.log('CONGRATS!!');
     }
 });
 
