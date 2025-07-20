@@ -8,7 +8,6 @@ let highScore = 0;
 const randomNumGenerator = function() {
     return Math.floor(Math.random() * 20 + 1);
 }
-// randomNumber = randomNumGenerator();
 
 const resetInitialValues = function () {
     randomNumber = randomNumGenerator();
@@ -16,6 +15,7 @@ const resetInitialValues = function () {
     document.querySelector('.score').textContent = score;
     document.querySelector('.guess').value = '';
     document.querySelector('.message').textContent = 'Start guessing...';
+    document.querySelector('.number').textContent = '?';
 }
 resetInitialValues();
 
@@ -39,6 +39,7 @@ document.querySelector('.check').addEventListener('click', function() {
         document.querySelector('.message').textContent = 'Too low ↓';
     } else if (guess === randomNumber) {
         document.querySelector('.message').textContent = 'CONGRATS!! ;)';
+        document.querySelector('.number').textContent = guess;
         if (score > highScore) {
             highScore = score;
             document.querySelector('.highscore').textContent = highScore;
