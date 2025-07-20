@@ -30,5 +30,12 @@ document.querySelector('.check').addEventListener('click', function() {
         score--;
         document.querySelector('.score').textContent = score;
         document.querySelector('.message').textContent = 'Too high ↑';
+    }  else if (guess < randomNumber) {
+        score--;
+        document.querySelector('.score').textContent = score;
+        document.querySelector('.message').textContent = 'Too low ↓';
+    } else if (guess === randomNumber) {
+        console.log('CONGRATS!!');
+        document.querySelector('.message').textContent = 'CONGRATS!! ;)';
     }
 });
