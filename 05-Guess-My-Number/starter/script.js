@@ -13,6 +13,9 @@ const randomNumGenerator = function() {
 const resetInitialValues = function () {
     randomNumber = randomNumGenerator();
     score = 20
+    document.querySelector('.score').textContent = score;
+    document.querySelector('.guess').value = '';
+    document.querySelector('.message').textContent = 'Start guessing...';
 }
 resetInitialValues();
 
@@ -38,4 +41,8 @@ document.querySelector('.check').addEventListener('click', function() {
         console.log('CONGRATS!!');
         document.querySelector('.message').textContent = 'CONGRATS!! ;)';
     }
+});
+
+document.querySelector('.again').addEventListener('click', function() {
+    resetInitialValues();
 });
