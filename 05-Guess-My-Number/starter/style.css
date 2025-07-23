@@ -22,7 +22,7 @@ body {
 header {
   position: relative;
   height: 35vh;
-  border-bottom: 7px solid ##b882ff;
+  border-bottom: 8px solid #b882ff;
 }
 
 main {
@@ -60,7 +60,7 @@ h1 {
   background: #b882ff;
   color: #222;
   font-size: 6rem;
-  width: 15rem;
+  width: 20rem;
   padding: 3rem 0rem;
   text-align: center;
   position: absolute;
@@ -84,7 +84,7 @@ h1 {
 
 .guess {
   background: none;
-  border: 4px solid #b882ff;
+  border: 8px solid #b882ff;
   font-family: inherit;
   color: inherit;
   font-size: 5rem;
