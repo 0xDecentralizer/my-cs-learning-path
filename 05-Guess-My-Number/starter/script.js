@@ -6,7 +6,7 @@ let score = 0;
 let highScore = 0;
 
 const randomNumGenerator = function() {
-    return Math.floor(Math.random() * 20 + 1);
+    return Math.floor(Math.random() * 1000 + 1);
 }
 
 const resetInitialValues = function () {
@@ -16,6 +16,7 @@ const resetInitialValues = function () {
     document.querySelector('.guess').value = '';
     document.querySelector('.message').textContent = 'Start guessing...';
     document.querySelector('.number').textContent = '?';
+    document.querySelector('.number').textContent = randomNumber;
 }
 resetInitialValues();
 
@@ -26,8 +27,9 @@ document.querySelector('.check').addEventListener('click', function() {
     if (!guess) {
         console.log('Invalid input!');
         document.querySelector('.message').textContent = 'Invalid input!';
-    } else if (guess < 1 || guess > 20) {
+    } else if (guess < 1 || guess > 1000) {
         console.log('Invalid number!');
+        alert('Invalid Number !');
         document.querySelector('.message').textContent = 'Invalid number!';
     } else if (guess > randomNumber) {
         score--;
@@ -40,6 +42,11 @@ document.querySelector('.check').addEventListener('click', function() {
     } else if (guess === randomNumber) {
         document.querySelector('.message').textContent = 'CONGRATS!! ;)';
         document.querySelector('.number').textContent = guess;
+        document.querySelector('body').style.backgroundColor = '#cfffebff';
+        document.querySelector('.number').style.width = '200rem';
+        document.querySelector('.number').style.color= '#cfffebff';
+        document.querySelector('.again').style.color= '#cfffebff';
+        document.querySelector('.check').style.color= '#cfffebff';
         if (score > highScore) {
             highScore = score;
             document.querySelector('.highscore').textContent = highScore;
@@ -50,4 +57,9 @@ document.querySelector('.check').addEventListener('click', function() {
 
 document.querySelector('.again').addEventListener('click', function() {
     resetInitialValues();
+    document.querySelector('body').style.backgroundColor = '';
+    document.querySelector('.number').style.color= '';    
+    document.querySelector('.again').style.color= '';
+    document.querySelector('.check').style.color= '';
+    document.querySelector('.number').style.width = '20rem';
 });
