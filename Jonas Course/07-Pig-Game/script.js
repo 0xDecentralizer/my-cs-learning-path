@@ -1,8 +1,14 @@
 'use strict';
 
+// Game data
+let currentScore = 0;
+let currentPlayer = 0;
+
 // Selecting Elements
 const score0El = document.querySelector('#score--0');
 const score1El = document.querySelector('#score--1');
+const player0El = document.querySelector('.player--0');
+const player1El = document.querySelector('.player--1');
 const current0El = document.querySelector('#current--0');
 const current1El = document.querySelector('#current--1');
 const diceEl = document.querySelector('.dice');
@@ -17,6 +23,9 @@ diceEl.classList.add('hidden');
 
 // Rolling Functionality
 btnRoll.addEventListener('click', function() {
+    // Reset the dice shadow
+    diceEl.classList.remove('diceOne');
+
     // Generate random number 
     const dice = Math.floor(Math.random() * 6 + 1); 
     
@@ -24,14 +33,27 @@ btnRoll.addEventListener('click', function() {
     diceEl.classList.remove('hidden');
     diceEl.setAttribute('src', `dice-${dice}.png`)
     
+
     // Check if it's 1, switch to other player
-    if (dice === 1) {
-        current0El.textContent = 0;
-        dice.setAttribute('box-shadow', '0 0rem 5rem rgba(255, 0, 0, 0.582)');
-        // dice. 
+    if (dice !== 1) {
+        currentScore += dice;
+        if (currentPlayer === 0)
+            current0El.textContent = currentScore;
+        else
+            current1El.textContent = currentScore; 
     } else {
-        current0El.textContent = +current0El.textContent + dice;
+        currentScore = 0;
+        if (currentPlayer === 0) {
+            current0El.textContent = currentScore;
+            player0El.classList.remove('player--active');
+            player1El.classList.add('player--active');
+        } else {
+            current1El.textContent = currentScore;
+            player1El.classList.remove('player--active');
+            player0El.classList.add('player--active');
+            
+        }
+        currentPlayer = currentPlayer ^ 1;
+        diceEl.classList.add('diceOne')
     }
-    // score0El.textContent = dice;
-    
 });

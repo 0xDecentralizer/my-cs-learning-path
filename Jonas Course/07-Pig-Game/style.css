@@ -171,3 +171,6 @@ main {
   display: none;
 }
 
+.diceOne {
+  box-shadow: 0 0 5rem rgba(255, 0, 0, 0.548);
+}
