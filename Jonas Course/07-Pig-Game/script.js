@@ -1,7 +1,7 @@
 'use strict';
 
 // Game data
-let currentScore = 0;
+let currentScore = 90;
 let currentPlayer = 0;
 let player0TotalScore = 0;
 let player1TotalScore = 0;
@@ -26,9 +26,14 @@ diceEl.classList.add('hidden');
 
 // Rolling Functionality
 btnRoll.addEventListener('click', function() {
+    if (player0TotalScore >= 100 || player1TotalScore >= 100) {
+        alert('Start a new game =P');
+        breake;
+    }
+
     // Reset the dice shadow
     diceEl.classList.remove('diceOne');
-
+    
     // Generate random number 
     const dice = Math.floor(Math.random() * 6 + 1); 
     
@@ -61,6 +66,11 @@ btnRoll.addEventListener('click', function() {
 });
 
 btnHold.addEventListener('click', function() {
+    if (player0TotalScore >= 100 || player1TotalScore >= 100) {
+        alert('Start a new game =P');
+        breake;
+    }
+
     if (currentPlayer === 0) {
         player0TotalScore += currentScore;
         if (player0TotalScore >= 100) alert('Player 1 Win =)');
@@ -74,7 +84,7 @@ btnHold.addEventListener('click', function() {
         currentScore = 0;
     } else {
         player1TotalScore += currentScore;
-        if (player0TotalScore >= 100) alert('Player 2 Win =)');
+        if (player1TotalScore >= 100) alert('Player 2 Win =)');
         
         current1El.textContent = 0;
         score1El.textContent = player1TotalScore;
