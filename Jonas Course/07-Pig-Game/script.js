@@ -95,3 +95,17 @@ btnHold.addEventListener('click', function() {
         currentScore = 0;
     }
 });
+
+btnNew.addEventListener('click', function() {
+    player0TotalScore = 0;
+    player1TotalScore = 0;
+    currentPlayer = 0;
+    currentScore = 0;
+    
+    current0El.textContent = currentScore;
+    current1El.textContent = currentScore;
+    score0El.textContent = player0TotalScore;
+    score1El.textContent = player1TotalScore;
+    player1El.classList.remove('player--active');
+    player0El.classList.add('player--active');
+});
