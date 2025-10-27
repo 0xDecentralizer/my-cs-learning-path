@@ -3,14 +3,17 @@
 // Game data
 let currentScore = 0;
 let currentPlayer = 0;
+let player0TotalScore = 0;
+let player1TotalScore = 0;
 
 // Selecting Elements
-const score0El = document.querySelector('#score--0');
-const score1El = document.querySelector('#score--1');
 const player0El = document.querySelector('.player--0');
 const player1El = document.querySelector('.player--1');
+const score0El = document.querySelector('#score--0');
+const score1El = document.querySelector('#score--1');
 const current0El = document.querySelector('#current--0');
 const current1El = document.querySelector('#current--1');
+
 const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
@@ -51,9 +54,32 @@ btnRoll.addEventListener('click', function() {
             current1El.textContent = currentScore;
             player1El.classList.remove('player--active');
             player0El.classList.add('player--active');
-            
         }
         currentPlayer = currentPlayer ^ 1;
         diceEl.classList.add('diceOne')
+    }
+});
+
+btnHold.addEventListener('click', function() {
+    if (currentPlayer === 0) {
+        player0TotalScore += currentScore;
+
+        current0El.textContent = 0;
+        score0El.textContent = player0TotalScore;
+        player0El.classList.remove('player--active');
+        player1El.classList.add('player--active');
+        
+        currentPlayer = currentPlayer ^ 1;
+        currentScore = 0;
+    } else {
+        player1TotalScore += currentScore;
+
+        current1El.textContent = 0;
+        score1El.textContent = player1TotalScore;
+        player1El.classList.remove('player--active');
+        player0El.classList.add('player--active');
+        
+        currentPlayer = currentPlayer ^ 1;
+        currentScore = 0;
     }
 });
