@@ -63,6 +63,7 @@ btnRoll.addEventListener('click', function() {
 btnHold.addEventListener('click', function() {
     if (currentPlayer === 0) {
         player0TotalScore += currentScore;
+        if (player0TotalScore >= 100) alert('Player 1 Win =)');
 
         current0El.textContent = 0;
         score0El.textContent = player0TotalScore;
@@ -73,7 +74,8 @@ btnHold.addEventListener('click', function() {
         currentScore = 0;
     } else {
         player1TotalScore += currentScore;
-
+        if (player0TotalScore >= 100) alert('Player 2 Win =)');
+        
         current1El.textContent = 0;
         score1El.textContent = player1TotalScore;
         player1El.classList.remove('player--active');
