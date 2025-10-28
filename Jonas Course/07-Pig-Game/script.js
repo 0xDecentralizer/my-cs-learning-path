@@ -1,7 +1,7 @@
 'use strict';
 
 // Game data
-let currentScore = 0;
+let currentScore = 99;
 let currentPlayer = 0;
 const scores = [0, 0];
 
@@ -24,6 +24,7 @@ score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden');
 
+// Switching player function
 const switchPlayer = function() {
     document.getElementById(`current--${currentPlayer}`).textContent = 0;
     player0El.classList.toggle('player--active');
@@ -64,14 +65,21 @@ btnHold.addEventListener('click', function() {
     }
     
     scores[currentPlayer] += currentScore;
-    if (scores[currentPlayer] >= 100) alert(`Player ${currentPlayer+1} Win =)`);
-    
     document.getElementById(`score--${currentPlayer}`).textContent = scores[currentPlayer];
-    switchPlayer();    
+    if (scores[currentPlayer] >= 100) {
+        document.querySelector(`.player--${currentPlayer}`).classList.add('player--winner');
+        document.querySelector(`.player--${currentPlayer}`).classList.remove('player--active');
+        document.querySelector(`#name--${currentPlayer}`).textContent = `Player ${currentPlayer + 1} Wins`;
+        document.getElementById(`current--${currentPlayer}`).textContent = 0;  
+        diceEl.classList.add('hidden');
+    } else {
+        switchPlayer();    
+    }
 });
 
 btnNew.addEventListener('click', function() {
-    
+    document.querySelector(`.player--${currentPlayer}`).classList.remove('player--winner');
+    document.querySelector(`#name--${currentPlayer}`).textContent = `Player ${currentPlayer + 1}`;
     document.getElementById(`current--${currentPlayer}`).textContent = 0; 
     scores[0] = 0;
     scores[1] = 0;
