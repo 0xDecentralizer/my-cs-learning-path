@@ -3,8 +3,8 @@
 // Game data
 let currentScore = 90;
 let currentPlayer = 0;
-let player0TotalScore = 0;
-let player1TotalScore = 0;
+const scores = [0, 0];
+
 
 // Selecting Elements
 const player0El = document.querySelector('.player--0');
@@ -26,7 +26,7 @@ diceEl.classList.add('hidden');
 
 // Rolling Functionality
 btnRoll.addEventListener('click', function() {
-    if (player0TotalScore >= 100 || player1TotalScore >= 100) {
+    if (scores[0] >= 100 || scores[1] >= 100) {
         alert('Start a new game =P');
         breake;
     }
@@ -66,28 +66,25 @@ btnRoll.addEventListener('click', function() {
 });
 
 btnHold.addEventListener('click', function() {
-    if (player0TotalScore >= 100 || player1TotalScore >= 100) {
+    if (scores[0] >= 100 || scores[1] >= 100) {
         alert('Start a new game =P');
         breake;
     }
+    
+    scores[currentPlayer] += currentScore;
+    if (scores[currentPlayer] >= 100) alert(`Player ${currentPlayer+1} Win =)`);
 
     if (currentPlayer === 0) {
-        player0TotalScore += currentScore;
-        if (player0TotalScore >= 100) alert('Player 1 Win =)');
-
         current0El.textContent = 0;
-        score0El.textContent = player0TotalScore;
+        score0El.textContent = scores[0];
         player0El.classList.remove('player--active');
         player1El.classList.add('player--active');
         
         currentPlayer = currentPlayer ^ 1;
         currentScore = 0;
-    } else {
-        player1TotalScore += currentScore;
-        if (player1TotalScore >= 100) alert('Player 2 Win =)');
-        
+    } else {        
         current1El.textContent = 0;
-        score1El.textContent = player1TotalScore;
+        score1El.textContent = scores[1];
         player1El.classList.remove('player--active');
         player0El.classList.add('player--active');
         
@@ -97,15 +94,15 @@ btnHold.addEventListener('click', function() {
 });
 
 btnNew.addEventListener('click', function() {
-    player0TotalScore = 0;
-    player1TotalScore = 0;
+    scores[0] = 0;
+    scores[1] = 0;
     currentPlayer = 0;
     currentScore = 0;
     
     current0El.textContent = currentScore;
     current1El.textContent = currentScore;
-    score0El.textContent = player0TotalScore;
-    score1El.textContent = player1TotalScore;
+    score0El.textContent = scores[0];
+    score1El.textContent = scores[1];
     player1El.classList.remove('player--active');
     player0El.classList.add('player--active');
 });
