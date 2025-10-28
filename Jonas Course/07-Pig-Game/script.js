@@ -1,7 +1,7 @@
 'use strict';
 
 // Game data
-let currentScore = 90;
+let currentScore = 0;
 let currentPlayer = 0;
 const scores = [0, 0];
 
@@ -24,6 +24,14 @@ score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden');
 
+const switchPlayer = function() {
+    document.getElementById(`current--${currentPlayer}`).textContent = 0;
+    player0El.classList.toggle('player--active');
+    player1El.classList.toggle('player--active');
+    currentPlayer = currentPlayer ^ 1;
+    currentScore = 0;
+};
+
 // Rolling Functionality
 btnRoll.addEventListener('click', function() {
     if (scores[0] >= 100 || scores[1] >= 100) {
@@ -44,12 +52,8 @@ btnRoll.addEventListener('click', function() {
         currentScore += dice;
         document.getElementById(`current--${currentPlayer}`).textContent = currentScore; 
     } else {
-        document.getElementById(`current--${currentPlayer}`).textContent = 0; 
-        currentScore = 0;
-        player0El.classList.toggle('player--active');
-        player1El.classList.toggle('player--active');
-        currentPlayer = currentPlayer ^ 1;
-        diceEl.classList.add('diceOne')
+        switchPlayer();
+        diceEl.classList.add('diceOne');
     }
 });
 
@@ -62,13 +66,8 @@ btnHold.addEventListener('click', function() {
     scores[currentPlayer] += currentScore;
     if (scores[currentPlayer] >= 100) alert(`Player ${currentPlayer+1} Win =)`);
     
-    document.getElementById(`current--${currentPlayer}`).textContent = 0;
     document.getElementById(`score--${currentPlayer}`).textContent = scores[currentPlayer];
-    player0El.classList.toggle('player--active');
-    player1El.classList.toggle('player--active');
-    
-    currentPlayer = currentPlayer ^ 1;
-    currentScore = 0;    
+    switchPlayer();    
 });
 
 btnNew.addEventListener('click', function() {
