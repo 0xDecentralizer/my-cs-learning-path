@@ -4,7 +4,11 @@
 let currentScore = 99;
 let currentPlayer = 0;
 const scores = [0, 0];
-
+const GameState = Object.freeze({
+    PLAYING: "PLAYING",
+    ENDED: "ENDED"
+});
+let gameState;
 
 // Selecting Elements
 const player0El = document.querySelector('.player--0');
@@ -23,6 +27,7 @@ const btnHold = document.querySelector('.btn--hold');
 score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden');
+gameState = GameState.PLAYING;
 
 // Switching player function
 const switchPlayer = function() {
@@ -35,7 +40,7 @@ const switchPlayer = function() {
 
 // Rolling Functionality
 btnRoll.addEventListener('click', function() {
-    if (scores[0] >= 100 || scores[1] >= 100) {
+    if (gameState === GameState.ENDED) {
         alert('Start a new game =P');
         breake;
     }
@@ -71,6 +76,7 @@ btnHold.addEventListener('click', function() {
         document.querySelector(`.player--${currentPlayer}`).classList.remove('player--active');
         document.querySelector(`#name--${currentPlayer}`).textContent = `Player ${currentPlayer + 1} Wins`;
         document.getElementById(`current--${currentPlayer}`).textContent = 0;  
+        gameState = GameState.ENDED;
         diceEl.classList.add('hidden');
     } else {
         switchPlayer();    
@@ -80,7 +86,8 @@ btnHold.addEventListener('click', function() {
 btnNew.addEventListener('click', function() {
     document.querySelector(`.player--${currentPlayer}`).classList.remove('player--winner');
     document.querySelector(`#name--${currentPlayer}`).textContent = `Player ${currentPlayer + 1}`;
-    document.getElementById(`current--${currentPlayer}`).textContent = 0; 
+    document.getElementById(`current--${currentPlayer}`).textContent = 0;
+    gameState = GameState.PLAYING;
     scores[0] = 0;
     scores[1] = 0;
     currentPlayer = 0;
