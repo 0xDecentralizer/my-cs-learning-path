@@ -25,7 +25,8 @@ const btnHold = document.querySelector('.btn--hold');
 
 // Initial state
 const init = function() {
-    scores = [0, 0];
+    scores[0] = 0;
+    scores[1] = 0;
     currentScore = 0;
     currentPlayer = 0;
     gameState = GameState.PLAYING;
@@ -79,14 +80,14 @@ btnRoll.addEventListener('click', function() {
 });
 
 btnHold.addEventListener('click', function() {
-    if (scores[0] >= 100 || scores[1] >= 100) {
+    if (gameState === GameState.ENDED) {
         alert('Start a new game =P');
         breake;
     }
     
     scores[currentPlayer] += currentScore;
     document.getElementById(`score--${currentPlayer}`).textContent = scores[currentPlayer];
-    if (scores[currentPlayer] >= 100) {
+    if (scores[currentPlayer] >= 20) {
         document.querySelector(`.player--${currentPlayer}`).classList.add('player--winner');
         document.querySelector(`.player--${currentPlayer}`).classList.remove('player--active');
         document.querySelector(`#name--${currentPlayer}`).textContent = `Player ${currentPlayer + 1} Wins`;
