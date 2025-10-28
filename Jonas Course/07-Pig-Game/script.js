@@ -1,8 +1,8 @@
 'use strict';
 
 // Game data
-let currentScore = 99;
-let currentPlayer = 0;
+let currentScore;
+let currentPlayer;
 const scores = [0, 0];
 const GameState = Object.freeze({
     PLAYING: "PLAYING",
@@ -24,10 +24,25 @@ const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
 // Initial state
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add('hidden');
-gameState = GameState.PLAYING;
+const init = function() {
+    scores = [0, 0];
+    currentScore = 0;
+    currentPlayer = 0;
+    gameState = GameState.PLAYING;
+    
+    score0El.textContent = 0;
+    score1El.textContent = 0;
+    current0El.textContent = 0;
+    current1El.textContent = 0;
+    
+    diceEl.classList.add('hidden');
+    player1El.classList.remove('player--winner'); 
+    player0El.classList.remove('player--winner');
+    player1El.classList.remove('player--active'); 
+    player0El.classList.add('player--active');
+
+};
+init();
 
 // Switching player function
 const switchPlayer = function() {
@@ -84,17 +99,6 @@ btnHold.addEventListener('click', function() {
 });
 
 btnNew.addEventListener('click', function() {
-    document.querySelector(`.player--${currentPlayer}`).classList.remove('player--winner');
-    document.querySelector(`#name--${currentPlayer}`).textContent = `Player ${currentPlayer + 1}`;
-    document.getElementById(`current--${currentPlayer}`).textContent = 0;
-    gameState = GameState.PLAYING;
-    scores[0] = 0;
-    scores[1] = 0;
-    currentPlayer = 0;
-    currentScore = 0;
-    score0El.textContent = scores[0];
-    score1El.textContent = scores[1];
-    player1El.classList.remove('player--active');
-    player0El.classList.add('player--active');
-    diceEl.classList.add('hidden');
+    init();
+    document.getElementById(`name--${currentPlayer}`).textContent = `Player ${currentPlayer + 1}`;
 });
